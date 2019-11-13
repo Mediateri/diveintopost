@@ -1,10 +1,11 @@
 class AgendasController < ApplicationController
-  # before_action :set_agenda, only: %i[show edit update destroy]
+   before_action :set_agenda, only: %i[show edit update destroy]
 
   def index
     @agendas = Agenda.all
   end
-
+def show 
+end
   def new
     @team = Team.friendly.find(params[:team_id])
     @agenda = Agenda.new
@@ -19,6 +20,11 @@ class AgendasController < ApplicationController
     else
       render :new
     end
+  end
+  def destroy
+    @agenda.destroy
+    AgendaMailer.agenda_mail(@agenda).deliver
+    redirect_to dashboard_url
   end
 
   private
