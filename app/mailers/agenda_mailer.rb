@@ -3,7 +3,9 @@ class AgendaMailer < ApplicationMailer
     def agenda_mail(agenda)
         @agenda = agenda
         team = agenda.team
-        assign = team.assigns
-        mail to: @assign.email, subject: 'Agenda was deleted'
+        team.assigns.each do |assign|
+            mail to: assign.email, subject: 'Agenda was deleted'
+        end
+
     end
 end
