@@ -15,7 +15,4 @@ class Team < ApplicationRecord
   def invite_member(user)
     assigns.create(user: user)
   end
-  def team_leader(user, team)
-    @team_owner = user
-  end
 end
