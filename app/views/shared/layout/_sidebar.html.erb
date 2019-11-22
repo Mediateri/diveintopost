@@ -35,9 +35,8 @@
               <p>
                 <%= agenda.title %>
                 <i class="right fa fa-angle-left"></i>
+                <%= link_to "Destroy", agenda , method: :delete, data: { confirm: 'Are you sure?' } %>
               </p>
-              <%= link_to "Destroy", agenda , method: :delete, data: { confirm: 'Are you sure?' } %>
-
             </a>
             <ul class="nav nav-treeview" style="display: block;">
               <% agenda.articles.each do |article| %>

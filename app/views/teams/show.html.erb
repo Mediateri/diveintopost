@@ -45,10 +45,11 @@
                     <tr>
                       <td><%= image_tag 'default.jpg', size: '40x40' %></td>
                       <td><%= assign.user.email %></td>
-                      
+                      <% if if current_user.id == @team.owner_id || assign.user.id == current_user.id %> 
                         <td><%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %></td>
-                      <% if current_user.id == @team.owner_id %>  
-                        <td><%= link_to 'make leader', edit_team_path(@team) %></td>
+                      <% end %>
+                      <% if current_user.id == @team.owner_id && assign.user.id != current_user.id %> 
+                        <td><%= link_to 'make leader', team_path(@team, :owner_id => assign.user.id),method: :patch ,class: 'btn btn-sm btn-success' %></td> 
                       <% end %>
                     </tr>
                   <% end %>
