@@ -22,13 +22,18 @@ end
     end
   end
   def destroy
-    @agenda.destroy
-    AgendaMailer.agenda_mail(@agenda).deliver
-    redirect_to dashboard_url
+    if current_user.id==@agenda.user_id
+      @agenda.destroy
+      AgendaMailer.agenda_mail(@agenda).deliver
+      @agenda.team.assigns.each do |assign|  
+        AssignMailer.assign_mail(assign.user.email,assign.user.password).deliver
+      end
+      redirect_to dashboard_url, notice: "agenda deleted "
+    else
+        redirect_to dashboard_url, notice: "you can't delete other owner's agenda"  
+    end
   end
-
   private
-
   def set_agenda
     @agenda = Agenda.find(params[:id])
   end
