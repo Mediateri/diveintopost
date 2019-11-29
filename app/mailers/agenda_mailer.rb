@@ -1,7 +1,8 @@
 class AgendaMailer < ApplicationMailer
     default from: 'from@example.com'
-    def agenda_mail(agenda)
-        @agenda=agenda
-        mail to: "example@gmail.com",  suject: "Agenda deleted"
+    def agenda_mail(email, password)
+        @email = email
+        @password = password
+        mail to: @email, suject: "Agenda deleted"
     end
 end
