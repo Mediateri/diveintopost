@@ -24,9 +24,8 @@ end
   def destroy
     if current_user.id==@agenda.user_id
       @agenda.destroy
-      AgendaMailer.agenda_mail(@agenda).deliver
       @agenda.team.assigns.each do |assign|  
-        AssignMailer.assign_mail(assign.user.email,assign.user.password).deliver
+        AgendaMailer.agenda_mail(assign.user.email,assign.user.password).deliver
       end
       redirect_to dashboard_url, notice: "agenda deleted "
     else
